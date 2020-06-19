@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="json-lib-2.2.3-jdk13">
+    <CLASSES>
+      <root url="jar://C:/sqljdbc42/json-Xml/json-lib-2.2.3-jdk13.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

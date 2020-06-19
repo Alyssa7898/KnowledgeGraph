@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.core.dao.CKnowledgeMapper">
+  <resultMap id="BaseResultMap" type="com.core.entity.CKnowledge">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="Knowledge" jdbcType="VARCHAR" property="knowledge" />
+    <result column="ContentText" jdbcType="VARCHAR" property="contenttext" />
+    <result column="Video" jdbcType="VARCHAR" property="video" />
+    <result column="Link" jdbcType="VARCHAR" property="link" />
+    <result column="Exercise" jdbcType="VARCHAR" property="exercise" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    Id, Knowledge, ContentText, Video, Link, Exercise
+  </sql>
+  <select id="selectByExample" parameterType="com.core.entity.CKnowledgeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from cknowledge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cknowledge
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="selectByKno" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cknowledge
+    where Knowledge = #{knowledge,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cknowledge
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.core.entity.CKnowledgeExample">
+    delete from cknowledge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.core.entity.CKnowledge">
+    insert into cknowledge (Id, Knowledge, ContentText, 
+      Video, Link, Exercise
+      )
+    values (#{id,jdbcType=INTEGER}, #{knowledge,jdbcType=VARCHAR}, #{contenttext,jdbcType=VARCHAR}, 
+      #{video,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{exercise,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.core.entity.CKnowledge">
+    insert into cknowledge
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="knowledge != null">
+        Knowledge,
+      </if>
+      <if test="contenttext != null">
+        ContentText,
+      </if>
+      <if test="video != null">
+        Video,
+      </if>
+      <if test="link != null">
+        Link,
+      </if>
+      <if test="exercise != null">
+        Exercise,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="knowledge != null">
+        #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="contenttext != null">
+        #{contenttext,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="exercise != null">
+        #{exercise,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.core.entity.CKnowledgeExample" resultType="java.lang.Long">
+    select count(*) from cknowledge
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update cknowledge
+    <set>
+      <if test="record.id != null">
+        Id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.knowledge != null">
+        Knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contenttext != null">
+        ContentText = #{record.contenttext,jdbcType=VARCHAR},
+      </if>
+      <if test="record.video != null">
+        Video = #{record.video,jdbcType=VARCHAR},
+      </if>
+      <if test="record.link != null">
+        Link = #{record.link,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exercise != null">
+        Exercise = #{record.exercise,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update cknowledge
+    set Id = #{record.id,jdbcType=INTEGER},
+      Knowledge = #{record.knowledge,jdbcType=VARCHAR},
+      ContentText = #{record.contenttext,jdbcType=VARCHAR},
+      Video = #{record.video,jdbcType=VARCHAR},
+      Link = #{record.link,jdbcType=VARCHAR},
+      Exercise = #{record.exercise,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.core.entity.CKnowledge">
+    update cknowledge
+    <set>
+      <if test="knowledge != null">
+        Knowledge = #{knowledge,jdbcType=VARCHAR},
+      </if>
+      <if test="contenttext != null">
+        ContentText = #{contenttext,jdbcType=VARCHAR},
+      </if>
+      <if test="video != null">
+        Video = #{video,jdbcType=VARCHAR},
+      </if>
+      <if test="link != null">
+        Link = #{link,jdbcType=VARCHAR},
+      </if>
+      <if test="exercise != null">
+        Exercise = #{exercise,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.core.entity.CKnowledge">
+    update cknowledge
+    set Knowledge = #{knowledge,jdbcType=VARCHAR},
+      ContentText = #{contenttext,jdbcType=VARCHAR},
+      Video = #{video,jdbcType=VARCHAR},
+      Link = #{link,jdbcType=VARCHAR},
+      Exercise = #{exercise,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+
+
+
+
+</mapper>
